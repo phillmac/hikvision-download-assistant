@@ -82,7 +82,7 @@ public class OutputFormatter {
         String tableColumnDelimiter = options.getTableDelimiter();
 
         if (!options.isQuiet()) {
-            String headers = String.join(tableColumnDelimiter, List.of("Type", "EventType", "Start", "End", "Curl", "Playback"));
+            String headers = String.join(tableColumnDelimiter, List.of("Type", "EventType", "Start", "End", "Curl", "Playback", "Filename"));
             String underline = new String(new char[headers.length()]).replace("\0", "-");
             System.err.println(headers);
             System.err.println(underline);
@@ -121,7 +121,8 @@ public class OutputFormatter {
                     dateToLocalString(startTime),
                     dateToLocalString(endTime),
                     getCurlCommand(),
-                    getPlaybackURI()
+                    getPlaybackURI(),
+                    getOutputFilename()
             );
         }
 
@@ -160,6 +161,10 @@ public class OutputFormatter {
                     "'" + getPlaybackURI() + "'",
                     "--output " + dateToLocalFilenameString(startTime) + "." + item.getMediaSegmentDescriptor().getCodecType()
             ));
+        }
+
+        public String getOutputFilename() {
+            return dateToLocalFilenameString(startTime) + (mediaType == MediaType.PHOTO ? item.getMediaSegmentDescriptor().getCodecType() :  ".mp4");
         }
 
         private String getOutputUsername() {
