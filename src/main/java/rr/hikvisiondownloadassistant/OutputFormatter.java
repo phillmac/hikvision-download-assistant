@@ -82,7 +82,7 @@ public class OutputFormatter {
         String tableColumnDelimiter = options.getTableDelimiter();
 
         if (!options.isQuiet()) {
-            String headers = String.join(tableColumnDelimiter, List.of("Type", "EventType", "Start", "End", "Curl"));
+            String headers = String.join(tableColumnDelimiter, List.of("Type", "EventType", "Start", "End", "Curl", "Playback"));
             String underline = new String(new char[headers.length()]).replace("\0", "-");
             System.err.println(headers);
             System.err.println(underline);
@@ -120,7 +120,8 @@ public class OutputFormatter {
                     getEventType(),
                     dateToLocalString(startTime),
                     dateToLocalString(endTime),
-                    getCurlCommand()
+                    getCurlCommand(),
+                    getPlaybackURI()
             );
         }
 
@@ -135,7 +136,7 @@ public class OutputFormatter {
                     .toUpperCase();
         }
 
-        private String getPlaybackURI() {
+        public String getPlaybackURI() {
             return item.getMediaSegmentDescriptor().getPlaybackURI();
         }
 
