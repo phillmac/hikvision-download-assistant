@@ -23,7 +23,7 @@ do
     else
         echo "${curlcmd}" >> ./download.sh
     fi
-done < <(jq -r . '"\(.outputFilename) \(.curlCommand)"'  < results.json)
+done < <(jq -r  '. | "\(.outputFilename) \(.curlCommand)"'  < results.json)
 
 chmod u+x ./download.sh
 
