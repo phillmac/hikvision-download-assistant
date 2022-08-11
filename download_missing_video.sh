@@ -20,7 +20,7 @@ while read -r fname curlcmd
     else
         echo "Skipping already downloaded ${fname}"
     fi
-done < <(jq -r . "\(.outputFilename) \(.curlCommand)"  < results.json)
+done < <(jq -r . '"\(.outputFilename) \(.curlCommand)"'  < results.json)
 
 chmod u+x ./download.sh
 
