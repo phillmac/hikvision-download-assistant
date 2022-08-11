@@ -16,7 +16,7 @@ cat output.json | jq -r --compact-output '.results[]' > results.json
 
 while read -r mediatype fname curlcmd
 do
-    if [[ "${mediatype}" == "video" ]]
+    if [[ "${mediatype}" == "VIDEO" ]]
     then
         echo "Checking ${fname}"
         if [[ -f "${fname}" ]]
