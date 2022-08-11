@@ -15,6 +15,7 @@ java -jar ../target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependenc
 
 while read -r fname curlcmd
 do
+    echo "Checking ${fname}"
     if [[ -f "${fname}" ]]
     then
         echo "Skipping already downloaded ${fname}"
