@@ -1,7 +1,7 @@
-FROM eclipse-temurin:11-jre
+FROM eclipse-temurin:11-jre-focal
 RUN apt update && apt install -y jq
 
-FROM eclipse-temurin:11-jre
+FROM eclipse-temurin:11-jre-focal
 
 COPY --from=0 /usr/bin/jq /usr/bin/jq
 
