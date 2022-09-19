@@ -28,7 +28,7 @@ do
     fi
 done < <(jq -r  '. | "\(.mediaType) \(.outputFilename) \(.curlCommand)"'  < results.json)
 
-tr "${1}/Streaming/tracks/" "${1}:${2}/Streaming/tracks/"
+tr "${1}/Streaming/tracks/" "${1}:${2}/Streaming/tracks/" < ./download-raw.sh > ./download.sh
 
 chmod u+x ./download.sh
 
