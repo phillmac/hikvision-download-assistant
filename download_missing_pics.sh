@@ -23,10 +23,12 @@ do
         then
             echo "Skipping already downloaded ${fname}"
         else
-            echo "${curlcmd}" >> ./download.sh
+            echo "${curlcmd}" >> ./download-raw.sh
         fi
     fi
 done < <(jq -r  '. | "\(.mediaType) \(.outputFilename) \(.curlCommand)"'  < results.json)
+
+tr "${1}/Streaming/tracks/" "${1}:${2}/Streaming/tracks/"
 
 chmod u+x ./download.sh
 
