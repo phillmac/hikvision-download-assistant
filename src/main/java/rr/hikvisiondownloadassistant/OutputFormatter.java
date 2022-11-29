@@ -145,6 +145,7 @@ public class OutputFormatter {
             return String.join(" ", List.of(
                     "curl",
                     "-f",
+                    "--remove-on-error",
                     "--anyauth --user " + getOutputUsername() + ":" + getOutputPassword(),
                     "-X GET",
                     "-d '<downloadRequest><playbackURI>" + getPlaybackURI().replace("&", "&amp;") + "</playbackURI></downloadRequest>'",
