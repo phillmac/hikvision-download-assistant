@@ -32,6 +32,8 @@ do
     fi
 done < <(jq -r  '. | "\(.mediaType) \(.outputFilename) \(.curlCommand)"'  < results.json)
 
+echo "fcount=${fcount}" >> ./download.sh
+
 chmod u+x ./download.sh
 
 ./download.sh
