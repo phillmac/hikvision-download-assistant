@@ -143,6 +143,7 @@ public class OutputFormatter {
 
         private String formatVideoCurlCommand() {
             return String.join(" ", List.of(
+                    "echo Progress: [\"${pcount}\"/\"${fcount}\"];((pcount=pcount+1));",
                     "curl",
                     "-f",
                     "--remove-on-error",
