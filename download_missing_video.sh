@@ -25,7 +25,7 @@ do
         then
             echo "Skipping already downloaded ${fname}"
         else
-            echo 'echo "$(date) Progress: ['${pcount}'/${fcount}]"' >> ./download.sh
+            echo 'echo "$(date) Progress: ['${pcount}'/${fcount}]"' >> ./download.sh.tmp
             echo "${curlcmd}" >> ./download.sh
             ((pcount=pcount+1))
         fi
@@ -33,6 +33,7 @@ do
 done < <(jq -r  '. | "\(.mediaType) \(.outputFilename) \(.curlCommand)"'  < results.json)
 
 echo "fcount=${fcount}" >> ./download.sh
+cat ./download.sh.tmp >> ./download.sh
 
 chmod u+x ./download.sh
 
