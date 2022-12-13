@@ -26,7 +26,7 @@ do
             echo "Skipping already downloaded ${fname}"
         else
             echo 'echo "$(date) Progress: ['${pcount}'/${fcount}]"' >> ./download.sh.tmp
-            echo "${curlcmd}" >> ./download.sh
+            echo "${curlcmd}" >> ./download.sh.tmp
             ((pcount=pcount+1))
         fi
     fi
