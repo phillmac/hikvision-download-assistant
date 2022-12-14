@@ -15,7 +15,7 @@ java -jar ../target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependenc
 cat output.json | jq -r --compact-output '.results[]' > results.json
 ((fcount=0))
 ((pcount=1))
-echo '' >> ./download.sh.tmp
+echo '' > ./download.sh.tmp
 
 while read -r mediatype fname curlcmd
 do
