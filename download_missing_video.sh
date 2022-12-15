@@ -27,7 +27,7 @@ do
         then
             echo "Skipping already downloaded ${fname}"
         else
-            echo 'echo "$(date) Fetching '"${fname}"' ['${pcount}'/${fcount}] | tee progress.log.txt"' >> ./download.sh.tmp
+            echo 'echo "$(date) Fetching '"${fname}"' ['${pcount}'/${fcount}]" | tee progress.log.txt' >> ./download.sh.tmp
             echo "${curlcmd}" '2> curl.log.txt' >> ./download.sh.tmp
             ((pcount=pcount+1))
         fi
