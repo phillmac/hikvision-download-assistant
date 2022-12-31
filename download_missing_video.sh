@@ -35,7 +35,7 @@ do
 done < <(jq -r  '. | "\(.mediaType) \(.outputFilename) \(.curlCommand)"'  < results.json)
 
 echo "tcount=${tcount}" >> ./download.sh
-echo "fcount=${pcount}" >> ./download.sh
+echo "fcount=$((pcount - 1 ))" >> ./download.sh
 
 cat ./download.sh.tmp >> ./download.sh
 
