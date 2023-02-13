@@ -46,7 +46,9 @@ public class Model {
         private String searchID;
         private boolean responseStatus;
         private String responseStatusStrg; // e.g. OK, e.g. MORE (when paginating), e.g. NO MATCHES (for empty result)
+        private long totalMatches;
         private long numOfMatches;
+
         private List<SearchMatchItem> matchList;
     }
 
