@@ -22,6 +22,7 @@ COPY --from=0 "/root/curl/" "/root/curl"
 COPY target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar /target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar
 COPY download_video.sh /usr/local/bin/download_video
 COPY download_missing_video.sh /usr/local/bin/download_missing_video
+COPY download_missing_events.sh /usr/local/bin/download_missing_events
 COPY download_missing_pics.sh /usr/local/bin/download_missing_pics
 
 
