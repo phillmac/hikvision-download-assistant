@@ -8,8 +8,11 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list~ \
   && unzip curl-7.86.0.zip \
   && cd curl-7.86.0 \
   && ./configure --prefix=$HOME/curl --with-openssl \
-  && make \
-  && make install
+  && make && make install \
+  && cd .. \
+  && wget http://www.live555.com/liveMedia/public/live555-latest.tar.gz \
+  && tar -xzf live555-latest.tar.gz \
+  && cd live && ./genMakefiles linux && make && make install
 
 FROM eclipse-temurin:11-jre-focal
 
@@ -17,7 +20,8 @@ ENV PATH="/root/curl/bin:$PATH"
 
 COPY --from=0 /usr/bin/jq /usr/bin/jq
 COPY --from=0 /usr/lib/x86_64-linux-gnu/libjq.so.1 /usr/lib/x86_64-linux-gnu/libonig.so.5 /usr/lib/x86_64-linux-gnu/
-COPY --from=0 "/root/curl/" "/root/curl"
+COPY --from=0 /root/curl/ /root/curl
+copy --from=0 /usr/local/bin/openRTSP /usr/local/bin/openRTSP
 
 COPY target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar /target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar
 COPY download_video.sh /usr/local/bin/download_video
