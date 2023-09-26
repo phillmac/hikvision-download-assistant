@@ -3,13 +3,13 @@
 DTNOW=$(date '+%Y%m%d%H%M%S')
 
 openRTSP \
-    -d "{$MAX_DURATION:-86400}" \
+    -d "${MAX_DURATION:-86400}" \
     -D 10 \
     -c \
     -B 10000000 \
     -b 10000000 \
     -Q \
-    -F "${OUTPUT_PREFIX}_${DTNOW}_" \
+    -F "${OUTPUT_PREFIX}-${DTNOW}-" \
     -P "${REC_SEG_LEN}" \
     -t \
     -u "${RTSP_USER}" "${RTSP_PASSWD}" \
