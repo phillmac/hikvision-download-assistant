@@ -1,6 +1,6 @@
 #! /bin/bash
 
-DTNOW=$(date '+%F_%T')
+DTNOW=$(date '+%Y%m%d%H%M%S')
 
 openRTSP \
     -D 10 \
