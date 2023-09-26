@@ -1,5 +1,7 @@
 #! /bin/bash
 
+DTNOW=$(date '+%F %T')
+
 openRTSP \
     -D 10 \
     -d "{$MAX_DURATION:-86400}" \
@@ -7,7 +9,7 @@ openRTSP \
     -B 10000000 \
     -b 10000000 \
     -Q \
-    -F "${OUTPUT_PREFIX}_${date '+%F %T'}_" \
+    -F "${OUTPUT_PREFIX}_${DTNOW}_" \
     -P "${REC_SEG_LEN}" \
     -t \
     -u "${RTSP_USER}" "${RTSP_PASSWD}" \
