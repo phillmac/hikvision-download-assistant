@@ -16,7 +16,7 @@ RUN unzip curl-7.86.0.zip \
 COPY live.2023.07.24.tar.gz live.2023.07.24.tar.gz
 
 RUN tar -xzf live.2023.07.24.tar.gz \
-  && cd live && ./genMakefiles linux && make && make install
+  && cd live && ./genMakefiles linux-64bit && make && make install
 
 FROM eclipse-temurin:11-jre-focal
 
