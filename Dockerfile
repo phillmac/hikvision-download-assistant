@@ -1,17 +1,21 @@
 FROM eclipse-temurin:11-jre-focal
+
 RUN cp /etc/apt/sources.list /etc/apt/sources.list~ \
   && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
   && apt-get update \
   && apt-get install -y jq unzip build-essential \
-  && apt-get build-dep -y curl \
-  && wget https://curl.se/download/curl-7.86.0.zip \
-  && unzip curl-7.86.0.zip \
+  && apt-get build-dep -y curl
+
+COPY curl-7.86.0.zip curl-7.86.0.zip
+
+RUN unzip curl-7.86.0.zip \
   && cd curl-7.86.0 \
   && ./configure --prefix=$HOME/curl --with-openssl \
-  && make && make install \
-  && cd .. \
-  && wget http://www.live555.com/liveMedia/public/live555-latest.tar.gz \
-  && tar -xzf live555-latest.tar.gz \
+  && make && make install
+
+COPY live.2023.07.24.tar.gz live.2023.07.24.tar.gz
+
+RUN tar -xzf live.2023.07.24.tar.gz \
   && cd live && ./genMakefiles linux && make && make install
 
 FROM eclipse-temurin:11-jre-focal
