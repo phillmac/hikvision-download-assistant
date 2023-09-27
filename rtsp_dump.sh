@@ -5,7 +5,6 @@ DTNOW=$(date '+%Y%m%d%H%M%S')
 openRTSP \
     -d "${MAX_DURATION:-86400}" \
     -D 10 \
-    -c \
     -B 10000000 \
     -b 10000000 \
     -Q \
