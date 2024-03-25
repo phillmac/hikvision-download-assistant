@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-local output_dir=${OUTPUT_DIR:-output}
+output_dir=${OUTPUT_DIR:-output}
 
 if [[ ! -d "${output_dir}" ]]
 then
