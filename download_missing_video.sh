@@ -2,12 +2,12 @@
 
 output_dir=${OUTPUT_DIR:-'/output'}
 
-if [[ ! -d "${output_dir}" ]]
+if [[ ! -d "${output_dir}/tmp" ]]
 then
-    mkdir -pv "${output_dir}"/tmp
+    mkdir -pv "${output_dir}/tmp"
 fi
 
-cd "${output_dir}"/tmp || exit
+cd "${output_dir}/tmp" || exit
 
 echo '#!/usr/bin/env bash' > ./download.sh
 echo 'set -eo pipefail' >> ./download.sh
@@ -46,4 +46,4 @@ chmod u+x ./download.sh
 
 ./download.sh
 
-cd / && rm -rvf "${output_dir}"/tmp
+cd / && rm -rvf "${output_dir}/tmp"
