@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-if [ ! -d output ]
+local output_dir=${OUTPUT_DIR:-output}
+
+if [[ ! -d "${output_dir}" ]]
 then
-    mkdir -v output
+    mkdir -pv "${output_dir}"
 fi
 
-cd output || exit
+cd "${output_dir}" || exit
 
 echo '#!/usr/bin/env bash' > ./download.sh
 echo 'set -eo pipefail' >> ./download.sh
