@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-output_dir=${OUTPUT_DIR:-output}
+output_dir=${OUTPUT_DIR:-'/output'}
 
 if [[ ! -d "${output_dir}" ]]
 then
-    mkdir -pv "${output_dir}"
+    mkdir -pv "${output_dir}"/tmp
 fi
 
-cd "${output_dir}" || exit
+cd "${output_dir}"/tmp || exit
 
 echo '#!/usr/bin/env bash' > ./download.sh
 echo 'set -eo pipefail' >> ./download.sh
@@ -25,12 +25,13 @@ do
     then
         ((tcount=tcount+1))
         echo "Checking ${fname} [${tcount}]"
-        if [[ -f "${fname}" ]]
+        if [[ -f "${output_dir}/${fname}" ]]
         then
             echo "Skipping already downloaded ${fname}"
         else
             echo 'echo "$(date) Fetching '"${fname}"' ['${pcount}'/${fcount}/${tcount}]" | tee progress.log.txt' >> ./download.sh.tmp
             echo "${curlcmd}" '2> >(tee curl.log.txt >&2)' >> ./download.sh.tmp
+            echo "mv -v '${output_dir}/tmp/${fname}' '${output_dir}'" >> ./download.sh.tmp
             ((pcount=pcount+1))
         fi
     fi
@@ -44,3 +45,5 @@ cat ./download.sh.tmp >> ./download.sh
 chmod u+x ./download.sh
 
 ./download.sh
+
+cd / && rm -rvf "${output_dir}"/tmp
