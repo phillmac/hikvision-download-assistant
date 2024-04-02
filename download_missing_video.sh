@@ -44,6 +44,16 @@ cat ./download.sh.tmp >> ./download.sh
 
 chmod u+x ./download.sh
 
-./download.sh
+failed=0
+
+if ! ./download.sh
+then
+    failed=1
+fi
 
 cd / && rm -rvf "${output_dir}/tmp"
+
+if ((failed))
+then
+    exit 1
+fi
