@@ -60,7 +60,8 @@ then
 
     if ! ./download.sh
     then
-        failed=1
+        echo "Download failed"
+        failed=255
     fi
 
 fi
@@ -69,5 +70,5 @@ cd / && rm -rvf "${output_dir}/tmp"
 
 if ((failed))
 then
-    exit 1
+    exit ${failed}
 fi
