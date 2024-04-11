@@ -12,8 +12,14 @@ cd "${output_dir}/tmp" || exit
 echo '#!/usr/bin/env bash' > ./download.sh
 echo 'set -eo pipefail' >> ./download.sh
 
+failed=0
 
-java -jar /target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar --quiet --output json  "${@}" > output.json
+if ! java -jar /target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar --quiet --output json  "${@}" > output.json
+then
+    echo "$(date) ~ Failed to search for assets"
+    failed=1
+fi
+
 cat output.json | jq -r --compact-output '.results[]' > results.json
 ((pcount=1))
 ((tcount=0))
@@ -37,14 +43,18 @@ do
     fi
 done < <(jq -r  '. | "\(.mediaType) \(.outputFilename) \(.curlCommand)"'  < results.json)
 
+if ((tcount < 1))
+then
+    echo "$(date) ~ Failed to find any assets"
+    failed=1
+fi
+
 echo "tcount=${tcount}" >> ./download.sh
 echo "fcount=$((pcount - 1 ))" >> ./download.sh
 
 cat ./download.sh.tmp >> ./download.sh
 
 chmod u+x ./download.sh
-
-failed=0
 
 if ! ./download.sh
 then
