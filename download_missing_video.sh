@@ -2,6 +2,8 @@
 
 output_dir=${OUTPUT_DIR:-'/output'}
 
+download_fail_delay=${DOWNLOAD_FAIL_DELAY:-300}
+
 if [[ ! -d "${output_dir}/tmp" ]]
 then
     mkdir -pv "${output_dir}/tmp"
@@ -62,6 +64,7 @@ then
     then
         echo "Download failed"
         failed=255
+        sleep "${download_fail_sleep}"
     fi
 
 fi
