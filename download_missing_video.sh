@@ -64,7 +64,7 @@ then
     then
         echo "Download failed"
         failed=255
-        sleep "${download_fail_sleep}"
+        sleep "${download_fail_delay}"
     fi
 
 fi
