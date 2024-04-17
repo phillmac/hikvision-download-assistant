@@ -4,14 +4,16 @@ package rr.hikvisiondownloadassistant;
 
 import lombok.RequiredArgsConstructor;
 
-import java.net.http.HttpHeaders;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -23,7 +25,7 @@ public class DigestAuth {
     private static MessageDigest messageDigest;
     private static SecureRandom random;
 
-    private final HttpHeaders unauthorizedResponseHeaders;
+    private final HttpResponse unauthorizedResponse;
     private final String requestMethod;
     private final String requestPath;
     private final String username;
@@ -39,12 +41,12 @@ public class DigestAuth {
         }
     }
 
-    public String getAuthorizationHeaderValue() {
-        Optional<String> wwwAuthenticateHeader = unauthorizedResponseHeaders.firstValue("www-authenticate");
-        if (wwwAuthenticateHeader.isEmpty()) {
+    public String getAuthorizationHeaderValue() throws IOException {
+        Header[] wwwAuthenticateHeaders = unauthorizedResponse.getHeaders("www-authenticate");
+        if (wwwAuthenticateHeaders.length == 0) {
             throw new RuntimeException("Expected digest auth challenge but did not find it");
         }
-        String authChallenge = wwwAuthenticateHeader.get();
+        String authChallenge = wwwAuthenticateHeaders[0].getValue();
         if (!authChallenge.startsWith("Digest ")) {
             throw new RuntimeException("Expected digest auth challenge but did not find it");
         }
@@ -98,5 +100,4 @@ public class DigestAuth {
     private String md5(String... values) {
         return printHexBinary(messageDigest.digest(String.join(":", values).getBytes(UTF_8))).toLowerCase();
     }
-
 }
