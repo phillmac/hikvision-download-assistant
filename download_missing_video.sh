@@ -58,7 +58,7 @@ then
     echo "tcount=${tcount}" >> ./download.sh
     echo "fcount=$((pcount - 1 ))" >> ./download.sh
 
-    cat ./download.sh.tmp >> ./download.sh
+    tee ./download.sh < ./download.sh.tmp
 
     chmod u+x ./download.sh
 
