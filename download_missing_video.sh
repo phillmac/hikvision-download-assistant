@@ -2,6 +2,8 @@
 
 output_dir=${OUTPUT_DIR:-'/output'}
 
+output_dir_escaped="${output_dir//\'/\\\'}"
+
 download_fail_delay=${DOWNLOAD_FAIL_DELAY:-300}
 
 if [[ ! -d "${output_dir}/tmp" ]]
@@ -41,7 +43,7 @@ then
             else
                 echo 'echo "$(date) Fetching '"${fname}"' ['${pcount}'/${fcount}/${tcount}]" | tee progress.log.txt' >> ./download.sh.tmp
                 echo "${curlcmd}" '2> >(tee curl.log.txt >&2)' >> ./download.sh.tmp
-                echo "mv -v '${output_dir}/tmp/${fname}' '${output_dir}'" >> ./download.sh.tmp
+                echo "mv -v \$'${output_dir_escaped}/tmp/${fname}' \$'${output_dir_escaped}'" >> ./download.sh.tmp
                 ((pcount=pcount+1))
             fi
         fi
