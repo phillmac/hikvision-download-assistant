@@ -132,7 +132,7 @@ public class IsapiRestClient {
     private HttpResponse doHttpRequestWithAuthHeader(String requestMethod, String path, String body, String authHeaderValue) throws IOException {
         SocketConfig socketConfig = SocketConfig.custom().setSoKeepAlive(true).setSoTimeout(1800000).build();
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(1800000).build();
-        CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).
+        CloseableHttpClient httpClient = HttpClientBuilder.create().useSystemProperties().setDefaultRequestConfig(requestConfig).
             setDefaultSocketConfig(socketConfig).build();
 
         HttpRequestBase request;
