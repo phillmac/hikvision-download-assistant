@@ -33,7 +33,7 @@ declare -a system_props_values=()
 
 for prop_name in "${system_props[@]}"
 do
-    prop_value=${!prop_name}
+    prop_value=$(printenv "${prop_name}")
     if [[ -n "${prop_value}" ]]
     then
         system_props_values+=("-D${prop_name}=${prop_value}")
