@@ -18,7 +18,31 @@ echo 'set -eo pipefail' >> ./download.sh
 
 failed=0
 
-if ! java -jar /target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar --quiet --output json  "${@}" > output.json
+system_props=(
+    http.proxyHost
+    http.proxyPort
+    http.proxyUser
+    http.proxyPassword
+    https.proxyHost
+    https.proxyPort
+    https.proxyUser
+    https.proxyPassword
+)
+
+declare -a system_props_values=()
+
+for prop_name in "${system_props[@]}"
+do
+    prop_value=${!prop_name}
+    if [[ -n "${prop_value}" ]]
+    then
+        system_props_values+=("-D${prop_name}=${prop_value}")
+    fi
+done
+
+echo 'System props:' "${system_props_values[@]}"
+
+if ! java "${system_props_values[@]}" -jar /target/hikvision-download-assistant-1.0-SNAPSHOT-jar-with-dependencies.jar --quiet --output json  "${@}" > output.json
 then
     echo "$(date) ~ Failed to search for assets"
     failed=1
