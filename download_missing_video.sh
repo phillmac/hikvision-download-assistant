@@ -6,6 +6,11 @@ output_dir_escaped="${output_dir//\'/\\\'}"
 
 download_fail_delay=${DOWNLOAD_FAIL_DELAY:-300}
 
+if ((FETCH_IGNORE_EMPTY))
+then
+    echo 'Ignore failed to find any asses mode enabled'
+fi
+
 if [[ ! -d "${output_dir}/tmp" ]]
 then
     mkdir -pv "${output_dir}/tmp"
