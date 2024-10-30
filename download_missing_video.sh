@@ -8,7 +8,7 @@ download_fail_delay=${DOWNLOAD_FAIL_DELAY:-300}
 
 if ((FETCH_IGNORE_EMPTY))
 then
-    echo 'Ignore failed to find any assets mode enabled'
+    echo 'Ignore failed to find any search results mode enabled'
 fi
 
 if [[ ! -d "${output_dir}/tmp" ]]
