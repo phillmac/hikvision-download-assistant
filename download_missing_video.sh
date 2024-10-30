@@ -75,8 +75,13 @@ then
 
     if ((tcount < 1))
     then
-        echo "$(date) ~ Failed to find any assets"
-        failed=1
+        if [[ -n "${FETCH_IGNORE_EMPTY}" ]]
+        then
+            echo "$(date) ~ Ignored lack of any results"
+        else
+            echo "$(date) ~ Failed to find any search results"
+            failed=1
+        fi
     fi
 
     echo "tcount=${tcount}" >> ./download.sh
