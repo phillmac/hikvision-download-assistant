@@ -75,7 +75,7 @@ then
 
     if ((tcount < 1))
     then
-        if [[ -n "${FETCH_IGNORE_EMPTY}" ]]
+        if ((FETCH_IGNORE_EMPTY))
         then
             echo "$(date) ~ Ignored lack of any results"
         else
